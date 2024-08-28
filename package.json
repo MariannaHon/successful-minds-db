@@ -8,9 +8,7 @@
   "scripts": {
     "lint": "eslint src/**/*.js",
     "start": "node ./src/index.js",
-    "dev": "nodemon src/index.js",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "Marianna_honcharuk <imarianna96i@gmail.com>",
@@ -19,7 +17,6 @@
   "devDependencies": {
     "@eslint/js": "^9.9.1",
     "eslint": "^9.9.1",
-    "gh-pages": "^6.1.1",
     "globals": "^15.9.0",
     "nodemon": "^3.1.4",
     "pino-pretty": "^11.2.2"
