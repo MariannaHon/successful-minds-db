@@ -20,6 +20,7 @@ export const setupServer = () => {
   );
 
   app.use(cors());
+  app.use(cookieParser());
 
   app.use(
     pino({
@@ -28,8 +29,6 @@ export const setupServer = () => {
       },
     })
   );
-
-  app.use(cookieParser());
 
   app.get('/', (req, res) => {
     res.json({
