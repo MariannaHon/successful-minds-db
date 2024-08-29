@@ -9,4 +9,5 @@ export const userSchema = Joi.object({
     'string.max': 'Password should be at most {#limit} characters',
   }),
   gender: Joi.string().valid('male', 'female'),
+  waterRate: Joi.number().min(1).max(15000).required(),
 });
