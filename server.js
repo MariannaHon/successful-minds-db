@@ -4,40 +4,42 @@ import cors from 'cors';
 
 import cookieParser from 'cookie-parser';
 
-
-import { env } from './src/utils/env.js'
-
+import { env } from './src/utils/env.js';
+import router from './src/routers/index.js';
 
 const PORT = Number(env('PORT', '3090'));
 
-
 export const setupServer = () => {
-    const app = express();
+  const app = express();
 
-    app.use(express.json({
-        type: ['application/json', 'application/vnd.api+json',],
-        limit: '100kb',
-    }));
+  app.use(
+    express.json({
+      type: ['application/json', 'application/vnd.api+json'],
+      limit: '100kb',
+    })
+  );
 
-    app.use(cors());
+  app.use(cors());
 
-    app.use(
-        pino({
-            transport: {
-                target: 'pino-pretty',
-            },
-        }),
-    );
+  app.use(
+    pino({
+      transport: {
+        target: 'pino-pretty',
+      },
+    })
+  );
 
-    app.use(cookieParser());
+  app.use(cookieParser());
 
-    app.get('/', (req, res) => {
-        res.json({
-            message: 'Hello world!',
-        });
+  app.get('/', (req, res) => {
+    res.json({
+      message: 'Hello world!',
     });
+  });
 
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
+  app.use(router);
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
 };
