@@ -1,5 +1,5 @@
 import { MAX_TOKEN_AGE } from '../constants/index.js';
-import { signup } from '../services/auth.js';
+import { signin, signup } from '../services/auth.js';
 import { createToken } from '../utils/createToken.js';
 
 export const signupController = async (req, res) => {
@@ -7,7 +7,7 @@ export const signupController = async (req, res) => {
 
   const token = createToken(user._id);
 
-  res.cookie('jwt', token, {
+  res.cookie('token', token, {
     httpOnly: true,
     expires: new Date(Date.now() + MAX_TOKEN_AGE),
   });
@@ -19,6 +19,30 @@ export const signupController = async (req, res) => {
   });
 };
 
-export const signinController = async (req, res) => {};
+export const signinController = async (req, res) => {
+  const { email, password } = req.body;
 
-export const logoutController = async (req, res) => {};
+  const user = await signin(email, password);
+  const token = createToken(user._id);
+
+  res.clearCookie('token');
+
+  res.cookie('token', token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + MAX_TOKEN_AGE),
+  });
+
+  res.json({
+    status: 200,
+    msg: 'Successfully logged in user',
+    data: {
+      user,
+    },
+  });
+};
+
+export const logoutController = async (req, res) => {
+  res.clearCookie('token');
+
+  res.status(204).send();
+};

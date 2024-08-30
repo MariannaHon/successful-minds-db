@@ -19,6 +19,6 @@ router.post(
 
 router.post('/signin', ctrlWrapper(signinController));
 
-router.post('/logout', ctrlWrapper(logoutController));
+router.get('/logout', ctrlWrapper(logoutController));
 
 export default router;

@@ -15,3 +15,22 @@ export const signup = async payload => {
 
   return await UsersCollection.create({ ...payload, password: hashPwd });
 };
+
+export const signin = async (email, password) => {
+  const user = await UsersCollection.findOne({
+    email,
+  });
+  console.log(user);
+
+  if (!user) {
+    throw createHttpError(404, 'User not found');
+  }
+
+  const comparePwd = await bcrypt.compare(password, user.password);
+
+  if (!comparePwd) {
+    throw createHttpError(401, 'Credentials is incorrect');
+  }
+
+  return user;
+};
