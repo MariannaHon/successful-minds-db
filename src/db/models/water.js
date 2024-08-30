@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
-const waterNotesSchema = new mongoose.Schema(
+const waterSchema = new mongoose.Schema(
   {
-    waterVolume: {
+    amount: {
         type: Number,
         required: true
     },
@@ -23,6 +23,4 @@ const waterNotesSchema = new mongoose.Schema(
 );
 
 
-const waterNotesCollection = mongoose.model('Water', waterNotesSchema);
-
-export { waterNotesCollection };
+export const WaterCollection = mongoose.model('waters', waterSchema);
