@@ -7,7 +7,7 @@ const userSchema = new Schema(
     password: { type: String, required: true },
     gender: { type: String, enum: ['male', 'female'], default: 'female' },
     avatarUrl: { type: String, default: null },
-    waterRate: { type: Number, required: true, default: 2000 },
+    waterRate: { type: Number, required: false, default: 2000 },
   },
   { timestamps: true, versionKey: false },
 );
@@ -18,4 +18,4 @@ userSchema.methods.toJSON = function () {
     return obj;
   };
 
-export const User = model('User', userSchema);
+export const UsersCollection = model('users', userSchema);
