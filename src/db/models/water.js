@@ -6,13 +6,14 @@ const waterSchema = new mongoose.Schema(
         type: Number,
         required: true
     },
-    date: {
+    time: {
         type: Date,
         required: true,
         default: Date.now
     },
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
+        ref: 'users',
         required: true,
       },
 },
