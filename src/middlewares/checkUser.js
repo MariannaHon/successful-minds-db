@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import { env } from '../utils/env';
-import { UsersCollection } from '../db/models/user';
+import { env } from '../utils/env.js';
+import { UsersCollection } from '../db/models/user.js';
 import createHttpError from 'http-errors';
 
 export function checkUser(req, res, next) {
