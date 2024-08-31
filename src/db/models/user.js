@@ -1,3 +1,4 @@
+
 import { Schema, model } from 'mongoose';
 
 const userSchema = new Schema(
@@ -14,6 +15,19 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
+    },
+    gender: { 
+      type: String, 
+      enum: ['male', 'female'], default: 'female' 
+    },
+    avatarUrl: {
+      type: String, 
+      default: null 
+    },
+    waterRate: {
+      type: Number, 
+      required: false, 
+      default: 2000 
     },
   },
   {
