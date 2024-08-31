@@ -23,7 +23,10 @@ export const setupServer = () => {
     })
   );
 
-  app.use(cors());
+  app.use(cors({
+    origin: 'http://localhost:5173'                    //////////////////////////////////////після тесту повернути, як було
+  }));
+  
   app.use(cookieParser());
 
   app.use(
