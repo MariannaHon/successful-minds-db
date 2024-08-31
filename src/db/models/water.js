@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-const waterSchema = new mongoose.Schema(
+const waterSchema = new Schema(
   {
     amount: {
         type: Number,
@@ -24,4 +24,4 @@ const waterSchema = new mongoose.Schema(
 );
 
 
-export const WaterCollection = mongoose.model('waters', waterSchema);
+export const WaterCollection = model('waters', waterSchema);
