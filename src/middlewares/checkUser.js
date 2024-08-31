@@ -10,6 +10,7 @@ export function checkUser(req, res, next) {
     jwt.verify(token, env('JWT_SECRET'), async function (err, decodedToken) {
       if (err) {
         console.log(err);
+        req.user = null;
         next();
       } else {
         let user = await UsersCollection.findById(decodedToken.id);
@@ -18,6 +19,7 @@ export function checkUser(req, res, next) {
       }
     });
   } else {
+    req.user = null;
     next(createHttpError(401, 'Token is not found'));
   }
 }
