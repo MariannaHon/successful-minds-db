@@ -9,7 +9,7 @@ export const saveFileToUploadDir = async (file) => {
     path.join(UPLOAD_AVATAR_DIR, file.filename),
   );
 
-  return `${env('APP_DOMAIN')}/contacts/${file.filename}`;
+  return `${env('APP_DOMAIN')}/user/${file.filename}`;
 };
 
 
