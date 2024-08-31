@@ -4,6 +4,8 @@ import { calculateWaterPercentage } from '../utils/calculateWaterPercentage.js';
 
 export const getAllRecords = async (userId) => {
 
+    console.log(userId);
+
     const records = await WaterCollection.find({ userId });
     return records;
 };
