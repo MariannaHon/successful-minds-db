@@ -1,12 +1,11 @@
-#Junk
-.vscode/
-.idea/
-.env
 
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
+.vscode/
+.idea/
+.env
 
 # testing
 /coverage

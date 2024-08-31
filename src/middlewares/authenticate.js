@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { env } from '../utils/env';
+import { env } from '../utils/env.js';
 import createHttpError from 'http-errors';
 
 export function authenticate(req, res, next) {

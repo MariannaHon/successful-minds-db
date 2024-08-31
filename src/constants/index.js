@@ -1,3 +1,6 @@
+
+import path from 'path';
+
 export const MAX_TOKEN_AGE = 1 * 24 * 60 * 60;
 
 export const TEMPLATE_DIR = path.resolve('src', 'templates');
