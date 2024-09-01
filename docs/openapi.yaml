@@ -1,0 +1,60 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Water tracker
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: This is a documentation of Water tracker app
+tags:
+  - name: User
+    description: Operations about user information.
+  - name: Auth
+    description: Auth operations.
+  - name: Water
+    description: Water tracker operations.
+servers:
+  - url: http://127.0.0.1:3090
+  - url: https://successful-minds-db.onrender.com
+paths:
+  /user/{id}:
+    patch:
+      $ref: ../swagger/paths/user/{id}/patch.yaml
+    get:
+      $ref: ../swagger/paths/user/{id}/get.yaml
+    put:
+      $ref: ../swagger/paths/user/{id}/put.yaml
+  # /auth/signup:
+  #   post:
+  #     security: []
+  #     $ref: ../swagger/paths/auth/signup.yaml
+  # /auth/signin:
+  #   post:
+  #     security: []
+  #     $ref: ../swagger/paths/auth/signin.yaml
+  # /auth/logout:
+  #   get:
+  #     $ref: ../swagger/paths/auth/logout.yaml
+  # /water:
+  #   get:
+  #     $ref: ../swagger/paths/water/get.yaml
+  #   post:
+  #     $ref: ../swagger/paths/water/post.yaml
+  # /water/{id}:
+  #   patch:
+  #     $ref: ../swagger/paths/water/{id}/patch.yaml
+  #   delete:
+  #     $ref: ../swagger/paths/water/{id}/delete.yaml
+  # /water/stats:
+  #   get:
+  #     $ref: ../swagger/paths/water/stats.yaml
+  #  /water/stats/month:
+  #   get:
+  #     $ref: ../swagger/paths/water/month.yaml
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
