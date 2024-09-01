@@ -24,7 +24,7 @@ export const setupServer = () => {
   );
 
   app.use(cors({
-    origin: ['http://localhost:5173', 'https://mariannahon.github.io/project-successful-minds-07/']                    //////////////////////////////////////після тесту повернути, як було
+    origin: ['http://localhost:5173', 'https://mariannahon.github.io/']                    //////////////////////////////////////після тесту повернути, як було
   }));
   
   app.use(cookieParser());
