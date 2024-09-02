@@ -4,9 +4,6 @@ required:
   - name
   - email
   - password
-  - gender
-  - avatarUrl
-  - waterRate
 properties:
   _id:
     description: "User's id"
@@ -24,15 +21,3 @@ properties:
     description: "User's password"
     type: string
     example: 'password123'
-  gender:
-    description: "User's gender"
-    type: string
-    enum: ['male', 'female']
-  avatarUrl:
-    description: "Link to user's avatar"
-    type: string
-    example: 'https://res.cloudinary.com/uqwhgf/image/upload/image.png'
-  waterRate:
-    description: "User's water rate"
-    type: number
-    example: 2000
