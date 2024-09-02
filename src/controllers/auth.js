@@ -25,8 +25,6 @@ export const signinController = async (req, res) => {
   const user = await signin(email, password);
   const token = createToken(user._id);
 
-  res.clearCookie('token');
-
   res.cookie('token', token, {
     httpOnly: true,
     expires: new Date(Date.now() + MAX_TOKEN_AGE),
