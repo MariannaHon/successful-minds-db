@@ -1,0 +1,30 @@
+tags:
+  - Water
+summary: Create a new water record
+operationId: postWater
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../components/schemas/water.yaml'
+responses:
+  201:
+   description: Successfully created a record about water
+   content:
+      application/json:
+         schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a record about water!
+            data:
+              $ref: '../../components/schemas/water.yaml'
+  400:
+   description: Bad Request
+  401:
+    description: Unauthorized

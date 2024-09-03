@@ -1,0 +1,28 @@
+tags:
+  - Water
+summary: Get water stats for a specific month
+operationId: statsMonth
+parameters:
+  - in: query
+    name: month
+    schema:
+      type: integer
+      description: The month for which to retrieve stats (1-12)
+      example: 9
+  - in: query
+    name: year
+    schema:
+      type: integer
+      description: The year for which to retrieve stats
+      example: 2023
+responses:
+  200:
+    description: Successfully get water stats for the month
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '../../components/schemas/water.yaml'
+  401:
+    description: Unauthorized
