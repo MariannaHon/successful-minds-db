@@ -35,22 +35,22 @@ paths:
   # /auth/logout:
   #   get:
   #     $ref: ../swagger/paths/auth/logout.yaml
-  # /water:
-  #   get:
-  #     $ref: ../swagger/paths/water/get.yaml
-  #   post:
-  #     $ref: ../swagger/paths/water/post.yaml
-  # /water/{id}:
-  #   patch:
-  #     $ref: ../swagger/paths/water/{id}/patch.yaml
-  #   delete:
-  #     $ref: ../swagger/paths/water/{id}/delete.yaml
-  # /water/stats:
-  #   get:
-  #     $ref: ../swagger/paths/water/stats.yaml
-  #  /water/stats/month:
-  #   get:
-  #     $ref: ../swagger/paths/water/month.yaml
+  /water:
+    get:
+      $ref: "../swagger/paths/water/get.yaml"
+    post:
+      $ref: ../swagger/paths/water/post.yaml
+  /water/{id}:
+    patch:
+      $ref: ../swagger/paths/water/{id}/patch.yaml
+    delete:
+      $ref: ../swagger/paths/water/{id}/delete.yaml
+  /water/stats:
+    get:
+      $ref: ../swagger/paths/water/stats.yaml
+  /water/stats/month:
+    get:
+      $ref: ../swagger/paths/water/month.yaml
 components:
   securitySchemes:
     bearerAuth:

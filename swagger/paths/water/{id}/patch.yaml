@@ -1,0 +1,48 @@
+tags:
+  - Water
+summary: Update an existing water record
+operationId: patchWater
+description: 'Patch water record by id'
+parameters:
+  - in: path
+    name: id
+    schema:
+      type: string
+    required: true
+    description: The ID of the water record to update
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          amount:
+            description: "The amount of water consumed in milliliters"
+            type: number
+            example: 150
+          time:
+            description: "The time the water was consumed"
+            type: string
+            format: date-time
+            example: 2024-06-25T08:00:00.000+00:00
+responses:
+  200:
+    description: Successfully patched a record
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully patched a record!
+            data:
+              $ref: '../../../components/schemas/water.yaml'
+  404:
+    description: Record not found
+  401:
+    description: Unauthorized
