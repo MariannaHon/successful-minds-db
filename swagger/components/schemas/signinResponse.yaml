@@ -1,0 +1,44 @@
+type: object
+properties:
+  status:
+    type: integer
+    example: 200
+  msg:
+    type: string
+    example: Successfully logged in user
+  data:
+    type: object
+    properties:
+      user:
+        type: object
+        properties:
+          _id:
+            type: string
+            example: 66d5874f56197e497607a13b
+          name:
+            type: string
+            example: oleh
+          email:
+            type: string
+            example: oleh1@gmail.com
+          gender:
+            type: string
+            example: female
+          avatarUrl:
+            type: string
+            example: 'https://res.cloudinary.com/uqwgdu/image/upload/image.png'
+          waterRate:
+            type: integer
+            example: 2000
+          createdAt:
+            type: string
+            format: date-time
+            example: 2024-09-02T09:37:19.723Z
+          updatedAt:
+            type: string
+            format: date-time
+            example: 2024-09-02T09:37:19.723Z
+required:
+  - status
+  - msg
+  - data

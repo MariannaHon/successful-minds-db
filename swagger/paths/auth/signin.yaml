@@ -1,0 +1,40 @@
+tags:
+  - Auth
+summary: User Signin
+operationId: signinUser
+description: 'Authenticate a user and provide a token'
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../../swagger/components/schemas/signinRequest.yaml'
+responses:
+  '200':
+    description: Successfully logged in user
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/signinResponse.yaml'
+  '400':
+    description: Bad Request
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: Invalid input data or missing fields
+  '401':
+    description: Unauthorized
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/responses/401.yaml'
