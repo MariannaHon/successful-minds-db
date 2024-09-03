@@ -24,17 +24,17 @@ paths:
       $ref: ../swagger/paths/user/{id}/get.yaml
     put:
       $ref: ../swagger/paths/user/{id}/put.yaml
-  # /auth/signup:
-  #   post:
-  #     security: []
-  #     $ref: ../swagger/paths/auth/signup.yaml
-  # /auth/signin:
-  #   post:
-  #     security: []
-  #     $ref: ../swagger/paths/auth/signin.yaml
-  # /auth/logout:
-  #   get:
-  #     $ref: ../swagger/paths/auth/logout.yaml
+  /auth/signup:
+    post:
+      security: []
+      $ref: ../swagger/paths/auth/signup.yaml
+  /auth/signin:
+    post:
+      security: []
+      $ref: ../swagger/paths/auth/signin.yaml
+  /auth/logout:
+    get:
+      $ref: ../swagger/paths/auth/logout.yaml
   /water:
     get:
       $ref: ../swagger/paths/water/get.yaml

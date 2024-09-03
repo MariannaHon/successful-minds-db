@@ -1,0 +1,34 @@
+tags:
+  - Auth
+summary: User Signup
+operationId: signupUser
+description: 'Register a new user and create an account'
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../../swagger/components/schemas/signupRequest.yaml'
+responses:
+  '201':
+    description: User was created
+    content:
+      application/json:
+        schema:
+          $ref: '../../../swagger/components/schemas/signupResponse.yaml'
+  '400':
+    description: Bad Request
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: Invalid input data or missing fields
