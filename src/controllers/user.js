@@ -1,11 +1,12 @@
 import createHttpError from 'http-errors';
+import bcrypt from 'bcrypt';
 import { env } from '../utils/env.js';
-import { getUser, patchUser, updateUser } from '../services/user.js';
+import { getUser, patchUser, patchAvatar } from '../services/user.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
-export const patchUserController = async (req, res, next) => {
-  const { userId } = req.params;
+export const patchAvatarController = async (req, res, next) => {
+  const { _id: userId } = req.user;
   const img = req.file;
 
   let avatarUrl;
@@ -18,14 +19,7 @@ export const patchUserController = async (req, res, next) => {
     }
   }
 
-  const result = await patchUser(userId, {
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    gender: req.body.gender,
-    avatarUrl: avatarUrl,
-    waterRate: req.body.waterRate,
-  });
+  const result = await patchAvatar(userId, { avatarUrl });
 
   if (!result) {
     return next(createHttpError(404, 'User not found'));
@@ -33,19 +27,17 @@ export const patchUserController = async (req, res, next) => {
 
   res.status(200).send({
     status: 200,
-    message: 'Successfully patched a user!',
+    message: 'Successfully patched a user avatar!',
     data: result,
   });
 };
 
-
-
 export const getUserController = async (req, res, next) => {
-  const { userId } = req.params;
+  const { _id: userId } = req.user;
 
-	const user = await getUser(userId);
+  const user = await getUser(userId);
 
-	if (!user) {
+  if (!user) {
     return next(createHttpError(404, 'User not found'));
   }
 
@@ -56,30 +48,26 @@ export const getUserController = async (req, res, next) => {
   });
 };
 
+export const patchUserController = async (req, res, next) => {
+  const { _id: userId } = req.user;
+  const { name, email, password, gender, waterRate } = req.body;
 
+  let updatedData = { name, email, gender, waterRate };
 
-export const upsertUserController = async (req, res, next) => {
-  const { userId } = req.params;
+  if (password) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    updatedData.password = hashedPassword;
+  }
 
-  const user = await updateUser(
-    userId,
-    {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-      gender: req.body.gender,
-      avatarUrl: req.file,
-      waterRate: req.body.waterRate,
-    },
-  );
+  const result = await patchUser(userId, updatedData);
 
-  if (!user) {
+  if (!result) {
     return next(createHttpError(404, 'User not found'));
   }
 
   res.status(200).send({
     status: 200,
-    message: `Successfully upserted a user!`,
-    data: user,
+    message: 'Successfully updated user information!',
+    data: result,
   });
 };
