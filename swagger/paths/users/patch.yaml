@@ -1,15 +1,8 @@
 tags:
-  - User
-summary: Update user by id
-operationId: updateUser
-description: 'Update user by id'
-parameters:
-  - in: path
-    name: id
-    required: true
-    schema:
-      type: string
-      example: '65ca67e7ae7f10c88b598384'
+  - Users
+summary: Patch user information
+operationId: patchUser
+description: 'Patch user information'
 requestBody:
   required: true
   content:
@@ -18,28 +11,35 @@ requestBody:
         type: object
         properties:
           name:
-            description: "User's name"
+            description: 'User name'
             type: string
+            minLength: 3
+            maxLength: 32
             example: 'John Doe'
           email:
-            description: "User's email"
+            description: 'User email'
             type: string
+            format: email
             example: 'example@gmail.com'
           password:
-            description: "User's password"
+            description: 'User password'
             type: string
+            minLength: 8
+            maxLength: 64
             example: 'password123'
           gender:
-            description: "User's gender"
+            description: 'User gender'
             type: string
             enum: ['male', 'female']
           waterRate:
-            description: "User's water rate"
+            description: 'User water rate'
             type: number
+            minLength: 1
+            maxLength: 15000
             example: 2000
 responses:
   '200':
-    description: 'Successfully updated a user'
+    description: 'Successfully patched a user information'
     content:
       application/json:
         schema:
@@ -54,11 +54,9 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully updated a user!
+              example: Successfully patched a user information!
             data:
               type: object
-              $ref: '../../../components/schemas/user.yaml'
-  '401':
-    $ref: '../../../components/responses/401.yaml'
+              $ref: '../../components/schemas/users.yaml'
   '404':
-    $ref: '../../../components/responses/404.yaml'
+    $ref: '../../components/responses/404.yaml'
