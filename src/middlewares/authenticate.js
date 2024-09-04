@@ -3,17 +3,18 @@ import { env } from '../utils/env.js';
 import createHttpError from 'http-errors';
 
 export function authenticate(req, res, next) {
-  const token = req.cookies.token;
+  const authHeaded = req.headers['authorization'];
+  const token = authHeaded && authHeaded.split(' ')[1];
 
   if (!token) {
     return next(createHttpError(401, 'Token not found'));
   }
 
-  const compare = jwt.verify(token, env('JWT_SECRET'));
+  jwt.verify(token, env('JWT_SECRET'), (err, user) => {
+    if (err) return createHttpError(401, 'Token is invalid or expider');
 
-  if (!compare) {
-    return next(createHttpError(401, 'Token is not valid'));
-  }
+    req.user = user;
 
-  next();
+    next();
+  });
 }
