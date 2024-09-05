@@ -6,11 +6,11 @@ import {
 } from '../utils/createTokens.js';
 import { MAX_REFRESH_TOKEN_AGE } from '../constants/index.js';
 
-export const signupController = async (req, res) => {
+export const signupController = async (req, res, next) => {
   const user = await signup(req.body);
 
   if (!user) {
-    return createHttpError(404, 'User not found');
+    next(createHttpError(404, 'User not found'));
   }
 
   const accessToken = createAccessToken(user._id);
@@ -19,6 +19,7 @@ export const signupController = async (req, res) => {
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
     secure: true,
+    expires: new Date(Date.now() + MAX_REFRESH_TOKEN_AGE),
   });
 
   res.json({

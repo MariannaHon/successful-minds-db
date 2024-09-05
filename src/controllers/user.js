@@ -35,6 +35,8 @@ export const patchAvatarController = async (req, res, next) => {
 export const getUserController = async (req, res, next) => {
   const { _id: userId } = req.user;
 
+  console.log(userId);
+
   const user = await getUser(userId);
 
   if (!user) {
