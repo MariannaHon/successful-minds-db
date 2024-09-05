@@ -9,10 +9,12 @@ import { validateBody } from '../middlewares/validateBody.js';
 import { updateUserSchema } from '../validation/user.js';
 import { authenticate } from '../middlewares/authenticate.js';
 import { upload } from '../middlewares/multer.js';
+import { checkUser } from '../middlewares/checkUser.js';
 
 const router = express.Router();
 const jsonParser = express.json();
 router.use(authenticate);
+router.use(checkUser);
 
 router.patch(
   '/avatar',
