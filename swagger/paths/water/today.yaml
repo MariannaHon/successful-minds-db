@@ -1,0 +1,38 @@
+tags:
+  - Water
+summary: Get today's water stats
+operationId: today
+description: How much water is consumed as a percentage of the daily norm
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: Successfully get water stats
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully get water stats!
+            data:
+              type: object
+              properties:
+                percentage:
+                  type: number
+                  description: Percentage of daily water intake achieved
+                  example: 75
+                records:
+                  type: array
+                  items:
+                    $ref: '../../components/schemas/water.yaml'
+  '401':
+    $ref: ..\..\components\responses\401w.yaml

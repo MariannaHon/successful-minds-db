@@ -3,13 +3,19 @@ tags:
 summary: Get all water records
 operationId: get
 description: Get all water records for the current user
+security:
+  - bearerAuth: []
 responses:
-  200:
+  '200':
     description: Successfully found water records
     content:
       application/json:
         schema:
           type: object
+          required:
+            - status
+            - message
+            - data
           properties:
             status:
               type: integer
@@ -21,5 +27,5 @@ responses:
               type: array
               items:
                 $ref: '../../components/schemas/water.yaml'
-  401:
-     description: Unauthorized
+  '401':
+    $ref: ..\..\components\responses\401w.yaml

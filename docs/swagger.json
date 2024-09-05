@@ -57,7 +57,6 @@
           }
         ],
         "requestBody": {
-          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
@@ -463,6 +462,11 @@
         "summary": "Get all water records",
         "operationId": "get",
         "description": "Get all water records for the current user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully found water records",
@@ -470,6 +474,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -491,7 +500,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Token not found"
           }
         }
       },
@@ -501,6 +510,12 @@
         ],
         "summary": "Create a new water record",
         "operationId": "postWater",
+        "description": "Create a new water record with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -539,7 +554,7 @@
             "description": "Bad Request"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Token not found"
           }
         }
       }
@@ -552,6 +567,11 @@
         "summary": "Update an existing water record",
         "operationId": "patchWater",
         "description": "Patch water record by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "path",
@@ -579,7 +599,7 @@
                     "description": "The time the water was consumed",
                     "type": "string",
                     "format": "date-time",
-                    "example": "2024-06-25T08:00:00.000+00:00"
+                    "example": "2024-06-25 08:00"
                   }
                 }
               }
@@ -593,6 +613,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -610,6 +635,9 @@
               }
             }
           },
+          "400": {
+            "description": "ID is not valid"
+          },
           "401": {
             "description": "Unauthorized"
           },
@@ -624,6 +652,12 @@
         ],
         "summary": "Delete a water record",
         "operationId": "deleteWater",
+        "description": "Delete a water record by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "path",
@@ -639,6 +673,9 @@
           "204": {
             "description": "Successfully deleted the water record"
           },
+          "400": {
+            "description": "ID is not valid"
+          },
           "401": {
             "description": "Unauthorized"
           },
@@ -648,13 +685,19 @@
         }
       }
     },
-    "/water/stats": {
+    "/water/today": {
       "get": {
         "tags": [
           "Water"
         ],
         "summary": "Get today's water stats",
-        "operationId": "stats",
+        "operationId": "today",
+        "description": "How much water is consumed as a percentage of the daily norm",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully get water stats",
@@ -662,6 +705,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -672,7 +720,20 @@
                       "example": "Successfully get water stats!"
                     },
                     "data": {
-                      "$ref": "#/components/schemas/water"
+                      "type": "object",
+                      "properties": {
+                        "percentage": {
+                          "type": "number",
+                          "description": "Percentage of daily water intake achieved",
+                          "example": 75
+                        },
+                        "records": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/water"
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -680,18 +741,24 @@
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Token not found"
           }
         }
       }
     },
-    "/water/stats/month": {
+    "/water/month": {
       "get": {
         "tags": [
           "Water"
         ],
         "summary": "Get water stats for a specific month",
-        "operationId": "statsMonth",
+        "operationId": "month",
+        "description": "How much water is consumed as a percentage of the daily norm for each day of the selected month",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "query",
@@ -720,14 +787,36 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/water"
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "description": "Date of the record",
+                        "example": "1, September"
+                      },
+                      "dailyWaterRate": {
+                        "type": "string",
+                        "description": "Daily water intake goal",
+                        "example": "2000 ml"
+                      },
+                      "consumedPercentage": {
+                        "type": "string",
+                        "description": "Percentage of daily water intake achieved",
+                        "example": "75%"
+                      },
+                      "consumptionCount": {
+                        "type": "integer",
+                        "description": "Number of water intake records for the day",
+                        "example": 3
+                      }
+                    }
                   }
                 }
               }
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Token not found"
           }
         }
       }
@@ -993,7 +1082,7 @@
             "description": "The time the water was consumed",
             "type": "string",
             "format": "date-time",
-            "example": "2024-06-25T08:00:00.000+00:00"
+            "example": "2024-06-25 08:00"
           },
           "userId": {
             "description": "Id of the user who owns this note",
