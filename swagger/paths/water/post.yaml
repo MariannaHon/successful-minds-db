@@ -24,7 +24,7 @@ responses:
               example: Successfully created a record about water!
             data:
               $ref: '../../components/schemas/water.yaml'
-  400:
+  '400':
    description: Bad Request
-  401:
-    description: Unauthorized
+  '401':
+    $ref: '../../components/responses/401.yaml'

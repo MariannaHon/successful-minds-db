@@ -33,8 +33,10 @@ responses:
               type: string
               example: Invalid input data or missing fields
   '401':
-    description: Unauthorized
-    content:
-      application/json:
-        schema:
-          $ref: '../../components/responses/401.yaml'
+    $ref: '../../components/responses/401.yaml'
+  # '401':
+  #   description: Unauthorized
+  #   content:
+  #     application/json:
+  #       schema:
+  #         $ref: '../../components/responses/401.yaml'

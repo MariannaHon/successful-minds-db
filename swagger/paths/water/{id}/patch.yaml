@@ -27,7 +27,7 @@ requestBody:
             format: date-time
             example: 2024-06-25T08:00:00.000+00:00
 responses:
-  200:
+  '200':
     description: Successfully patched a record
     content:
       application/json:
@@ -42,7 +42,7 @@ responses:
               example: Successfully patched a record!
             data:
               $ref: '../../../components/schemas/water.yaml'
-  404:
+  '404':
     description: Record not found
-  401:
-    description: Unauthorized
+  '401':
+    $ref: '../../../components/responses/401.yaml'
