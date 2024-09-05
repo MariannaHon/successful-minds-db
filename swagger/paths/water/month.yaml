@@ -45,4 +45,5 @@ responses:
                 description: Number of water intake records for the day
                 example: 3
   '401':
-    $ref: ..\..\components\responses\401w.yaml
+    $ref: '../../components/responses/401.yaml'
+

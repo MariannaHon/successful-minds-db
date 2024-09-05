@@ -1,6 +1,12 @@
 import createHttpError from 'http-errors';
 import { UsersCollection } from '../db/models/user.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { env } from '../utils/env.js';
+import {
+  createAccessToken,
+  createRefreshToken,
+} from '../utils/createTokens.js';
 
 export const signup = async payload => {
   const user = await UsersCollection.findOne({
@@ -20,7 +26,6 @@ export const signin = async (email, password) => {
   const user = await UsersCollection.findOne({
     email,
   });
-  console.log(user);
 
   if (!user) {
     throw createHttpError(404, 'User not found');
@@ -33,4 +38,24 @@ export const signin = async (email, password) => {
   }
 
   return user;
+};
+
+export const refreshUser = async token => {
+  if (!token) return createHttpError(401, 'Token is not found');
+
+  try {
+    const user = jwt.verify(token, env('JWT_SECRET'));
+
+    const newRefreshToken = createRefreshToken(user._id);
+
+    const newAccessToken = createAccessToken(user._id);
+
+    return {
+      newRefreshToken,
+      newAccessToken,
+    };
+  } catch (err) {
+    console.log(err);
+    throw createHttpError(400, 'Invalid token');
+  }
 };

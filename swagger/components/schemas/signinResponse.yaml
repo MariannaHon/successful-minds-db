@@ -38,7 +38,12 @@ properties:
             type: string
             format: date-time
             example: 2024-09-02T09:37:19.723Z
+      accessToken:
+        type: string
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 required:
   - status
   - msg
   - data
+  - user
+  - accessToken

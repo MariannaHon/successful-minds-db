@@ -28,4 +28,4 @@ responses:
               items:
                 $ref: '../../components/schemas/water.yaml'
   '401':
-    $ref: ..\..\components\responses\401w.yaml
+    $ref: '../../components/responses/401.yaml'

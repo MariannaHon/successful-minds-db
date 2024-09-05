@@ -15,9 +15,7 @@ parameters:
 responses:
   '204':
     description: Successfully deleted the water record
-  '400':
-    $ref: ..\..\..\components\responses\400.yaml
-  '401':
-    $ref: ..\..\..\components\responses\401.yaml
   '404':
-    $ref: ..\..\..\components\responses\404w.yaml
+    $ref: ../../../components/responses/404w.yaml
+  '401':
+    $ref: '../../../components/responses/401.yaml'

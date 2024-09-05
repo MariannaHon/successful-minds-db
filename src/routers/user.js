@@ -3,34 +3,32 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import {
   patchUserController,
   getUserController,
-  upsertUserController,
+  patchAvatarController,
 } from '../controllers/user.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { updateUserSchema } from '../validation/user.js';
-import { isValidId } from '../middlewares/isValidId.js';
 import { authenticate } from '../middlewares/authenticate.js';
 import { upload } from '../middlewares/multer.js';
+import { checkUser } from '../middlewares/checkUser.js';
 
 const router = express.Router();
 const jsonParser = express.json();
 router.use(authenticate);
+router.use(checkUser);
 
 router.patch(
-  '/:userId',
-  isValidId,
-  jsonParser,
+  '/avatar',
   upload.single('avatarUrl'),
-  validateBody(updateUserSchema),
-  ctrlWrapper(patchUserController)
+  ctrlWrapper(patchAvatarController)
 );
 
-router.get('/:userId', isValidId, jsonParser, ctrlWrapper(getUserController));
+router.get('/', jsonParser, ctrlWrapper(getUserController));
 
-router.put(
-  '/:userId',
-  isValidId,
+router.patch(
+  '/',
   jsonParser,
-  ctrlWrapper(upsertUserController)
+  validateBody(updateUserSchema),
+  ctrlWrapper(patchUserController)
 );
 
 export default router;

@@ -4,7 +4,8 @@ import { UsersCollection } from '../db/models/user.js';
 import createHttpError from 'http-errors';
 
 export function checkUser(req, res, next) {
-  const token = req.cookies.token;
+  const authHeaded = req.headers['authorization'];
+  const token = authHeaded && authHeaded.split(' ')[1];
 
   if (token) {
     jwt.verify(token, env('JWT_SECRET'), async function (err, decodedToken) {
