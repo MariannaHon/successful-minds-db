@@ -17,13 +17,14 @@ servers:
   - url: http://127.0.0.1:3090
   - url: https://successful-minds-db.onrender.com
 paths:
-  /user/{id}:
+  /users/avatar:
     patch:
-      $ref: ../swagger/paths/user/{id}/patch.yaml
+      $ref: ../swagger/paths/users/avatar.yaml
+  /users:
     get:
-      $ref: ../swagger/paths/user/{id}/get.yaml
-    put:
-      $ref: ../swagger/paths/user/{id}/put.yaml
+      $ref: ../swagger/paths/users/get.yaml
+    patch:
+      $ref: ../swagger/paths/users/patch.yaml
   /auth/signup:
     post:
       security: []

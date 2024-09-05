@@ -1,18 +1,11 @@
 tags:
-  - User
-summary: Get user by id
+  - Users
+summary: Get user information
 operationId: getUser
-description: 'Get user by id'
-parameters:
-  - in: path
-    name: id
-    required: true
-    schema:
-      type: string
-      example: '65ca67e7ae7f10c88b598384'
+description: 'Get user information'
 responses:
   '200':
-    description: 'Get user by id'
+    description: 'Get user information'
     content:
       application/json:
         schema:
@@ -30,8 +23,6 @@ responses:
               example: Successfully found user information!
             data:
               type: object
-              $ref: '../../../components/schemas/user.yaml'
-  '401':
-    $ref: '../../../components/responses/401.yaml'
+              $ref: '../../components/schemas/users.yaml'
   '404':
-    $ref: '../../../components/responses/404.yaml'
+    $ref: '../../components/responses/404.yaml'
