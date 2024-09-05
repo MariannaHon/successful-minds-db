@@ -16,7 +16,7 @@ parameters:
       description: The year for which to retrieve stats
       example: 2023
 responses:
-  200:
+  '200':
     description: Successfully get water stats for the month
     content:
       application/json:
@@ -24,5 +24,5 @@ responses:
           type: array
           items:
             $ref: '../../components/schemas/water.yaml'
-  401:
-    description: Unauthorized
+  '401':
+    $ref: '../../components/responses/401.yaml'

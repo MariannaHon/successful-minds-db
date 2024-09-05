@@ -10,9 +10,9 @@ parameters:
     required: true
     description: The ID of the water record to delete
 responses:
-  204:
+  '204':
     description: Successfully deleted the water record
-  404:
+  '404':
     description: Record not found
-  401:
-    description: Unauthorized
+  '401':
+    $ref: '../../../components/responses/401.yaml'

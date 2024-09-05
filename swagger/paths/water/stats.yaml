@@ -3,7 +3,7 @@ tags:
 summary: Get today's water stats
 operationId: stats
 responses:
-  200:
+  '200':
     description: Successfully get water stats
     content:
       application/json:
@@ -18,5 +18,5 @@ responses:
               example: Successfully get water stats!
             data:
               $ref: ..\..\components\schemas\water.yaml
-  401:
-    description: Unauthorized
+  '401':
+    $ref: '../../components/responses/401.yaml'
