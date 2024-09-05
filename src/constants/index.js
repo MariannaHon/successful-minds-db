@@ -1,6 +1,8 @@
 import path from 'path';
 
-export const MAX_TOKEN_AGE = 60 * 60 * 1000;
+export const ACCESS_TOKEN_AGE = '30m';
+export const REFRESH_TOKEN_AGE = '2d';
+export const MAX_REFRESH_TOKEN_AGE = 7 * 24 * 60 * 60 * 1000;
 
 export const TEMPLATE_DIR = path.resolve('src', 'templates');
 export const TMP_UPLOAD_DIR = path.resolve('src', 'tmp');
