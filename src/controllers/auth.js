@@ -4,7 +4,7 @@ import {
   createAccessToken,
   createRefreshToken,
 } from '../utils/createTokens.js';
-import { REFRESH_TOKEN_AGE } from '../constants/index.js';
+import { MAX_REFRESH_TOKEN_AGE } from '../constants/index.js';
 
 export const signupController = async (req, res) => {
   const user = await signup(req.body);
@@ -24,7 +24,10 @@ export const signupController = async (req, res) => {
   res.json({
     status: 201,
     msg: 'User was created',
-    accessToken,
+    data: {
+      user,
+      accessToken,
+    },
   });
 };
 
@@ -42,7 +45,7 @@ export const signinController = async (req, res) => {
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
     secure: true,
-    expires: new Date(Date.now() + REFRESH_TOKEN_AGE),
+    expires: new Date(Date.now() + MAX_REFRESH_TOKEN_AGE),
   });
 
   res.json({
@@ -63,26 +66,28 @@ export const logoutController = async (req, res) => {
 };
 
 export const refreshUserController = async (req, res) => {
-  const { token } = req.cookies;
+  const { refreshToken } = req.cookies;
 
-  if (!token) {
-    return res.status(401).json({
+  if (!refreshToken) {
+    return res.json({
       status: 401,
-      msg: 'Token not found',
-      data: {},
+      msg: 'Refresh token not found',
     });
   }
 
-  const newToken = await refreshUser(token);
+  const tokens = await refreshUser(refreshToken);
 
-  res.cookie('token', newToken, {
+  res.cookie('refreshToken', tokens.refreshToken, {
     httpOnly: true,
-    expires: new Date(Date.now() + MAX_TOKEN_AGE),
+    secure: true,
+    expires: new Date(Date.now() + MAX_REFRESH_TOKEN_AGE),
   });
 
   res.json({
     status: 200,
     msg: 'User successfully is refresh',
-    data: {},
+    data: {
+      accessToken: tokens.newAccessToken,
+    },
   });
 };
