@@ -4,7 +4,7 @@ import { UsersCollection } from '../db/models/user.js';
 import createHttpError from 'http-errors';
 
 export function checkUser(req, res, next) {
-  const token = req.cookies.token;
+  const token = req.cookies.refreshToken;
 
   if (token) {
     jwt.verify(token, env('JWT_SECRET'), async function (err, decodedToken) {
