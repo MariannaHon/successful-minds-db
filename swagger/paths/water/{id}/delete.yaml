@@ -2,6 +2,9 @@ tags:
   - Water
 summary: Delete a water record
 operationId: deleteWater
+description: 'Delete a water record by id'
+security:
+  - bearerAuth: []
 parameters:
   - in: path
     name: id
@@ -13,6 +16,6 @@ responses:
   '204':
     description: Successfully deleted the water record
   '404':
-    description: Record not found
+    $ref: ../../../components/responses/404w.yaml
   '401':
     $ref: '../../../components/responses/401.yaml'

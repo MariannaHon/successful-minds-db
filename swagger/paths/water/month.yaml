@@ -1,7 +1,10 @@
 tags:
   - Water
 summary: Get water stats for a specific month
-operationId: statsMonth
+operationId: month
+description: How much water is consumed as a percentage of the daily norm for each day of the selected month
+security:
+  - bearerAuth: []
 parameters:
   - in: query
     name: month
@@ -23,6 +26,24 @@ responses:
         schema:
           type: array
           items:
-            $ref: '../../components/schemas/water.yaml'
+            type: object
+            properties:
+              date:
+                type: string
+                description: Date of the record
+                example: "1, September"
+              dailyWaterRate:
+                type: string
+                description: Daily water intake goal
+                example: "2000 ml"
+              consumedPercentage:
+                type: string
+                description: Percentage of daily water intake achieved
+                example: "75%"
+              consumptionCount:
+                type: integer
+                description: Number of water intake records for the day
+                example: 3
   '401':
     $ref: '../../components/responses/401.yaml'
+

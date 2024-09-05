@@ -17,7 +17,7 @@ properties:
     description: "The time the water was consumed"
     type: string
     format: date-time
-    example: 2024-06-25T08:00:00.000+00:00
+    example: 2024-06-25 08:00
   userId:
     description: "Id of the user who owns this note"
     type: string

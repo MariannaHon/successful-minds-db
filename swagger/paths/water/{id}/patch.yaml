@@ -3,6 +3,8 @@ tags:
 summary: Update an existing water record
 operationId: patchWater
 description: 'Patch water record by id'
+security:
+  - bearerAuth: []
 parameters:
   - in: path
     name: id
@@ -25,7 +27,7 @@ requestBody:
             description: "The time the water was consumed"
             type: string
             format: date-time
-            example: 2024-06-25T08:00:00.000+00:00
+            example: 2024-06-25 08:00
 responses:
   '200':
     description: Successfully patched a record
@@ -33,6 +35,10 @@ responses:
       application/json:
         schema:
           type: object
+          required:
+            - status
+            - message
+            - data
           properties:
             status:
               type: integer
@@ -42,7 +48,10 @@ responses:
               example: Successfully patched a record!
             data:
               $ref: '../../../components/schemas/water.yaml'
-  '404':
-    description: Record not found
+  '400':
+    $ref: ../../../components/responses/400.yaml
   '401':
-    $ref: '../../../components/responses/401.yaml'
+  $ref: '../../../components/responses/401w.yaml'
+  '404':
+    $ref: ../../../components/responses/404w.yaml
+

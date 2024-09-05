@@ -3,6 +3,8 @@ tags:
 summary: Get all water records
 operationId: get
 description: Get all water records for the current user
+security:
+  - bearerAuth: []
 responses:
   '200':
     description: Successfully found water records
@@ -10,6 +12,10 @@ responses:
       application/json:
         schema:
           type: object
+          required:
+            - status
+            - message
+            - data
           properties:
             status:
               type: integer

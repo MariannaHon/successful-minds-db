@@ -26,9 +26,9 @@ router.patch('/:recordId', isValidId, validateBody(updateWaterSchema), ctrlWrapp
 
 router.delete('/:recordId', isValidId, ctrlWrapper(deleteWaterController));
 
-router.get('/stats', ctrlWrapper(getWaterStatsController));
+router.get('/today', ctrlWrapper(getWaterStatsController));
 
-router.get('/stats/month', ctrlWrapper(getWaterStatsMonthController));
+router.get('/month', ctrlWrapper(getWaterStatsMonthController));
 
 
 export default router;
