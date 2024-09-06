@@ -92,7 +92,6 @@ export const refreshUserController = async (req, res) => {
     status: 200,
     msg: 'User successfully is refresh',
     data: {
-      user,
       accessToken: tokens.newAccessToken,
     },
   });
