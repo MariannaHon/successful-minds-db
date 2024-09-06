@@ -84,7 +84,7 @@ export const refreshUserController = async (req, res) => {
 
   res.cookie('refreshToken', tokens.refreshToken, {
     httpOnly: true,
-    secure: true,
+    // secure: true,
     expires: new Date(Date.now() + MAX_REFRESH_TOKEN_AGE),
   });
 
