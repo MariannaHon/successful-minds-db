@@ -72,7 +72,6 @@ export const updatePassword = async (userId, newPassword) => {
     if (!updatedUser) {
       return null;
     }
-
     return updatedUser;
   } catch (error) {
     console.error(error);
