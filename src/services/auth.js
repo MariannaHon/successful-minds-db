@@ -59,3 +59,23 @@ export const refreshUser = async token => {
     throw createHttpError(400, 'Invalid token');
   }
 };
+const updatePassword = async (userId, newPassword) => {
+  try {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { password: hashedPassword },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return null;
+    }
+
+    return updatedUser;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

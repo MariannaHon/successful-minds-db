@@ -1,5 +1,10 @@
 import createHttpError from 'http-errors';
-import { refreshUser, signin, signup } from '../services/auth.js';
+import {
+  refreshUser,
+  signin,
+  signup,
+  updatePassword,
+} from '../services/auth.js';
 import {
   createAccessToken,
   createRefreshToken,
@@ -90,4 +95,40 @@ export const refreshUserController = async (req, res) => {
       accessToken: tokens.newAccessToken,
     },
   });
+};
+export const updatePasswordController = async (req, res) => {
+  const { newPassword, confirmPassword } = req.body;
+  const userId = req.user.userId;
+
+  try {
+    if (newPassword !== confirmPassword) {
+      return createHttpError(400, 'Passwords do not match');
+    }
+
+    const updatedUser = await updatePassword(userId, newPassword);
+
+    if (!updatedUser) {
+      return createHttpError(404, 'User not found');
+    }
+
+    const refreshToken = createRefreshToken(updatedUser._id);
+    const accessToken = createAccessToken(updatedUser._id);
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: true,
+      expires: new Date(Date.now() + MAX_REFRESH_TOKEN_AGE),
+    });
+
+    res.json({
+      status: 200,
+      msg: 'Password updated successfully',
+      data: {
+        accessToken,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    next(createHttpError(500, 'Server error'));
+  }
 };
