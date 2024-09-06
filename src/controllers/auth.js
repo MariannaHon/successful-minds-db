@@ -1,5 +1,10 @@
 import createHttpError from 'http-errors';
-import { refreshUser, signin, signup } from '../services/auth.js';
+import {
+  refreshUser,
+  requestResetPassword,
+  signin,
+  signup,
+} from '../services/auth.js';
 import {
   createAccessToken,
   createRefreshToken,
@@ -90,5 +95,15 @@ export const refreshUserController = async (req, res) => {
       user,
       accessToken: tokens.newAccessToken,
     },
+  });
+};
+
+export const requestResetEmailController = async (req, res) => {
+  await requestResetPassword(req.body.email);
+
+  res.json({
+    status: 200,
+    msg: 'Reset password email was sent',
+    data: {},
   });
 };
