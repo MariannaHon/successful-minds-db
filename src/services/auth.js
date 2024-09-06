@@ -59,7 +59,7 @@ export const refreshUser = async token => {
     throw createHttpError(400, 'Invalid token');
   }
 };
-const updatePassword = async (userId, newPassword) => {
+export const updatePassword = async (userId, newPassword) => {
   try {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
