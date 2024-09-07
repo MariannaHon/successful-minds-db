@@ -6,6 +6,7 @@ import {
   refreshUserController,
   requestResetEmailController,
   signinController,
+  resetPasswordController,
   signupController,
 } from '../controllers/auth.js';
 import { validateBody } from '../middlewares/validateBody.js';
@@ -13,7 +14,9 @@ import {
   requestResetEmailSchema,
   signinUserSchema,
   signupUserSchema,
+  resetPasswordSchema,
 } from '../validation/auth.js';
+
 
 const router = Router();
 
@@ -38,5 +41,9 @@ router.post(
   validateBody(requestResetEmailSchema),
   ctrlWrapper(requestResetEmailController)
 );
-
+router.post(
+  '/reset-password',
+  validateBody(resetPasswordSchema),
+  ctrlWrapper(resetPasswordController),
+);
 export default router;
