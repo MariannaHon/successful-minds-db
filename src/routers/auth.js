@@ -28,6 +28,9 @@ router.post(
 router.get('/logout', ctrlWrapper(logoutController));
 
 router.post('/refresh', ctrlWrapper(refreshUserController));
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++
+
 router.patch(
   '/password',
   validateBody(signinUserSchema),

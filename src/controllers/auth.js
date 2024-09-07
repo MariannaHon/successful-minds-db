@@ -1,4 +1,5 @@
 import createHttpError from 'http-errors';
+import { next } from 'express';
 import {
   refreshUser,
   signin,
@@ -96,6 +97,9 @@ export const refreshUserController = async (req, res) => {
     },
   });
 };
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++
+
 export const updatePasswordController = async (req, res) => {
   const { newPassword, confirmPassword } = req.body;
   const userId = req.user.userId;
