@@ -11,6 +11,10 @@ import {
 } from '../utils/createTokens.js';
 import { MAX_REFRESH_TOKEN_AGE } from '../constants/index.js';
 
+// ++++++++++++++++++++++++++++++++++++++++++++
+import { resetPassword } from '../services/auth.js';
+//  ++++++++++++++++++++++++++++++++++++++++++++++
+
 export const signupController = async (req, res) => {
   const user = await signup(req.body);
 
@@ -103,6 +107,15 @@ export const requestResetEmailController = async (req, res) => {
   res.json({
     status: 200,
     msg: 'Reset password email was sent',
+    data: {},
+  });
+};
+// +++++++++++++++++++++++++++++++++++++++++++++
+export const resetPasswordController = async (req, res) => {
+  await resetPassword(req.body);
+  res.json({
+    message: 'Password was successfully reset!',
+    status: 200,
     data: {},
   });
 };
