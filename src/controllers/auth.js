@@ -74,10 +74,7 @@ export const refreshUserController = async (req, res) => {
   const { refreshToken } = req.cookies;
 
   if (!refreshToken) {
-    return res.json({
-      status: 401,
-      msg: 'Refresh token not found',
-    });
+    return res.status(401).json({msg: 'Refresh token not found'});
   }
 
   const tokens = await refreshUser(refreshToken);
