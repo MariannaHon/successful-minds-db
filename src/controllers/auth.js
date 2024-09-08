@@ -112,5 +112,6 @@ export const resetPasswordController = async (req, res) => {
     message: 'Password was successfully reset!',
     status: 200,
     data: {},
+    redirect: '/signin'
   });
 };
