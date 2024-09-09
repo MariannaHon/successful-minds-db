@@ -52,7 +52,17 @@ export const patchUserController = async (req, res, next) => {
   const { _id: userId } = req.user;
   const { name, email, password, gender, waterRate } = req.body;
 
-  let updatedData = { name, email, gender, waterRate };
+  // let updatedData = { name, email, gender, waterRate };
+
+  let updatedData = {};
+
+  if (name) updatedData.name =  name;
+
+  if (email) updatedData.email =  email;
+
+  if (gender) updatedData.gender =  gender;
+
+  if (waterRate) updatedData.waterRate =  waterRate;
 
   if (password) {
     const hashedPassword = await bcrypt.hash(password, 10);
