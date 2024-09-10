@@ -9,6 +9,7 @@ const waterSchema = new Schema(
     time: {
         type: Date,
         required: true,
+        default: Date.now
     },
     userId: {
         type: Schema.Types.ObjectId,
