@@ -1,5 +1,11 @@
 import createHttpError from 'http-errors';
-import { refreshUser, signin, signup } from '../services/auth.js';
+import {
+  refreshUser,
+  requestResetPassword,
+  signin,
+  resetPassword,
+  signup,
+} from '../services/auth.js';
 import {
   createAccessToken,
   createRefreshToken,
@@ -69,17 +75,14 @@ export const refreshUserController = async (req, res) => {
   const { refreshToken } = req.cookies;
 
   if (!refreshToken) {
-    return res.json({
-      status: 401,
-      msg: 'Refresh token not found',
-    });
+    return res.status(401).json({msg: 'Refresh token not found'});
   }
 
   const tokens = await refreshUser(refreshToken);
 
-  res.cookie('refreshToken', tokens.refreshToken, {
+  res.cookie('refreshToken', tokens.newRefreshToken, {
     httpOnly: true,
-    secure: true,
+    // secure: true,
     expires: new Date(Date.now() + MAX_REFRESH_TOKEN_AGE),
   });
 
@@ -89,5 +92,26 @@ export const refreshUserController = async (req, res) => {
     data: {
       accessToken: tokens.newAccessToken,
     },
+  });
+};
+
+export const requestResetEmailController = async (req, res) => {
+  await requestResetPassword(req.body.email);
+
+  res.json({
+    status: 200,
+    msg: 'Reset password email was sent',
+    data: {},
+  });
+};
+// _____________________________________
+
+export const resetPasswordController = async (req, res) => {
+  await resetPassword(req.body);
+  res.json({
+    message: 'Password was successfully reset!',
+    status: 200,
+    data: {},
+    redirect: '/signin'
   });
 };

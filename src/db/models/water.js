@@ -7,8 +7,13 @@ const waterSchema = new Schema(
       required: true
     },
     time: {
+<<<<<<< water-routs&docs
       type: Date,
       required: true,
+=======
+        type: Date,
+        required: true,
+>>>>>>> main
     },
     userId: {
       type: Schema.Types.ObjectId,

@@ -78,7 +78,21 @@ export const patchUserController = async (req, res, next) => {
     const { _id: userId } = req.user;
     const { name, email, password, oldPassword, gender, waterRate } = req.body;
 
+<<<<<<< water-routs&docs
     const user = await getUser(userId);
+=======
+  // let updatedData = { name, email, gender, waterRate };
+
+  let updatedData = {};
+
+  if (name) updatedData.name =  name;
+
+  if (email) updatedData.email =  email;
+
+  if (gender) updatedData.gender =  gender;
+
+  if (waterRate) updatedData.waterRate =  waterRate;
+>>>>>>> main
 
     if (!user) {
       return next(createHttpError(404, 'User not found'));
