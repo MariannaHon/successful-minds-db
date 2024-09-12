@@ -48,51 +48,13 @@ export const getUserController = async (req, res, next) => {
   });
 };
 
-// export const patchUserController = async (req, res, next) => {
-//   const { _id: userId } = req.user;
-//   const { name, email, password, gender, waterRate } = req.body;
-
-//   let updatedData = { name, email, gender, waterRate };
-
-//   if (password) {
-//     const hashedPassword = await bcrypt.hash(password, 10);
-//     updatedData.password = hashedPassword;
-//   }
-
-//   const result = await patchUser(userId, updatedData);
-
-//   if (!result) {
-//     return next(createHttpError(404, 'User not found'));
-//   }
-
-//   res.status(200).send({
-//     status: 200,
-//     message: 'Successfully updated user information!',
-//     data: result,
-//   });
-// };
-
 
 export const patchUserController = async (req, res, next) => {
   try {
     const { _id: userId } = req.user;
     const { name, email, password, oldPassword, gender, waterRate } = req.body;
 
-<<<<<<< water-routs&docs
     const user = await getUser(userId);
-=======
-  // let updatedData = { name, email, gender, waterRate };
-
-  let updatedData = {};
-
-  if (name) updatedData.name =  name;
-
-  if (email) updatedData.email =  email;
-
-  if (gender) updatedData.gender =  gender;
-
-  if (waterRate) updatedData.waterRate =  waterRate;
->>>>>>> main
 
     if (!user) {
       return next(createHttpError(404, 'User not found'));
