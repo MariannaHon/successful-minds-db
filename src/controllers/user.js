@@ -50,35 +50,50 @@ export const getUserController = async (req, res, next) => {
 
 
 export const patchUserController = async (req, res, next) => {
-  const { _id: userId } = req.user;
-  const { name, email, password, gender, waterRate } = req.body;
+  try {
+    const { _id: userId } = req.user;
+    const { name, email, password, oldPassword, gender, waterRate } = req.body;
 
-  // let updatedData = { name, email, gender, waterRate };
+    const user = await getUser(userId);
 
-  let updatedData = {};
+    if (!user) {
+      return next(createHttpError(404, 'User not found'));
+    }
 
-  if (name) updatedData.name =  name;
+    let updatedData = {};
 
-  if (email) updatedData.email =  email;
+    if (name) updatedData.name = name;
+    if (email) updatedData.email = email;
+    if (gender) updatedData.gender = gender;
+    if (waterRate) updatedData.waterRate = waterRate;
 
-  if (gender) updatedData.gender =  gender;
+    if (password) {
+      if (!oldPassword) {
+        return next(createHttpError(400, 'Old password is required to update the password.'));
+      }
 
-  if (waterRate) updatedData.waterRate =  waterRate;
+      const isPasswordMatch = await bcrypt.compare(oldPassword, user.password);
 
-  if (password) {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    updatedData.password = hashedPassword;
+      if (!isPasswordMatch) {
+        return next(createHttpError(400, 'Old password does not match.'));
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updatedData.password = hashedPassword;
+    }
+
+    const result = await patchUser(userId, updatedData);
+
+    if (!result) {
+      return next(createHttpError(404, 'User not found'));
+    }
+
+    res.status(200).send({
+      status: 200,
+      message: 'Successfully updated user information!',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
   }
-
-  const result = await patchUser(userId, updatedData);
-
-  if (!result) {
-    return next(createHttpError(404, 'User not found'));
-  }
-
-  res.status(200).send({
-    status: 200,
-    message: 'Successfully updated user information!',
-    data: result,
-  });
 };
