@@ -3,20 +3,20 @@ import { Schema, model } from 'mongoose';
 const waterSchema = new Schema(
   {
     amount: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     },
     time: {
-        type: Date,
-        required: true,
+      type: Date,
+      required: true,
     },
     userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'users',
-        required: true,
-      },
-},
-{
+      type: Schema.Types.ObjectId,
+      ref: 'users',
+      required: true,
+    },
+  },
+  {
     timestamps: true,
     versionKey: false,
   },

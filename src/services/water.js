@@ -41,10 +41,12 @@ export const deleteWater = async (recordId, userId) => {
 
 export const today = async (userId, waterRate) => {
 
-    console.log(userId);
+    const now = new Date();
 
-    const start = startOfDay(new Date());
-    const end = endOfDay(new Date());
+    const start = startOfDay(now).toISOString();
+    const end = endOfDay(now).toISOString();
+
+    console.log(start, end);
 
     return calculateWaterPercentage(userId, waterRate, start, end);
 };
