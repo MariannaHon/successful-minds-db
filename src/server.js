@@ -24,7 +24,7 @@ export const setupServer = () => {
   );
 
   app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:5174', 'https://mariannahon.github.io'],                    //////////////////////////////////////після тесту повернути, як було
+    origin: ['http://localhost:5173', 'http://localhost:5174', 'https://waterapp-07.netlify.app' 'https://mariannahon.github.io'],                    //////////////////////////////////////після тесту повернути, як було
     credentials: true,
   }));
   
