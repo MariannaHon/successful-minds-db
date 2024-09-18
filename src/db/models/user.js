@@ -16,18 +16,18 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    gender: { 
-      type: String, 
-      enum: ['male', 'female'], default: 'female' 
+    gender: {
+      type: String,
+      enum: ['male', 'female'], default: 'female'
     },
     avatarUrl: {
-      type: String, 
-      default: null 
+      type: String,
+      default: null
     },
     waterRate: {
-      type: Number, 
-      required: false, 
-      default: 2000 
+      type: Number,
+      required: false,
+      default: 2000
     },
   },
   {

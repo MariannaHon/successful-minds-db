@@ -12,7 +12,9 @@ import fs from 'node:fs/promises';
 import handlebars from 'handlebars';
 import { SMTP, TEMPLATE_DIR } from '../constants/index.js';
 import { sendEmail } from '../utils/sendMail.js';
-
+//import { link } from 'joi';
+// import pkg from 'joi';
+// const { link } = pkg;
 export const signup = async payload => {
   const user = await UsersCollection.findOne({
     email: payload.email,
@@ -90,12 +92,17 @@ export const requestResetPassword = async email => {
 
   const templateSource = (await fs.readFile(resetPwdTemplatePath)).toString();
 
-  const template = handlebars.compile(templateSource);
 
+  const template = handlebars.compile(templateSource);
+  const resetUrl = `http://mariannahon.github.io/project-successful-minds-07/reset-password?token=${resetToken}`;
   const html = template({
     name: user?.name,
-    link: `${env('APP_DOMAIN')}/reset-password?token=${resetToken}`,
+    link: resetUrl
+    //`https://mariannahon.github.io/project-successful-minds-07/reset-password?token=${resetToken}`,
+
+
   });
+
 
   await sendEmail({
     from: env(SMTP.SMTP_FROM),
